@@ -1,0 +1,189 @@
+1. filter()  -> filter() is used to eliminate unwanted records and keep only matching records.
+employees.stream()
+        .filter(emp -> emp.department().equals("IT"))
+        .toList();
+
+2. map() -> map() transforms one object into another object.
+employees.stream()
+        .filter(emp -> emp.department().equals("IT"))
+        .toList();
+
+3. distinct()->  Duplicate cities remove చేస్తుంది.
+employees.stream()
+        .map(Employee::city)
+        .distinct()
+        .toList();
+
+
+4. sorted()-> sorting the Data
+employees.stream()
+        .sorted(
+           Comparator.comparing(Employee::salary)
+                     .reversed()
+        )
+        .toList();
+
+5. limit() -> Top 3 Employees ex
+employees.stream()
+        .sorted(Comparator.comparing(Employee::salary)
+        .reversed())
+        .limit(3)
+        .toList();
+
+6. skip() ->  Second Highest Salary
+
+employees.stream()
+        .sorted(
+              Comparator.comparing(Employee::salary)
+              .reversed())
+        .skip(1)
+        .findFirst();
+
+7. count() -> IT Employees Count
+
+employees.stream()
+        .filter(e -> e.department().equals("IT"))
+        .count();
+
+8. findFirst() ->  First Employee from Hyderabad
+
+employees.stream()
+        .filter(e -> e.city().equals("Hyderabad"))
+        .findFirst();
+
+ 9. anyMatch()-> IT Employee exists?
+
+ employees.stream()
+         .anyMatch(e -> e.department().equals("IT"));
+
+ 10. allMatch() -> All Employees salary > 20000?
+
+ employees.stream()
+         .allMatch(e -> e.salary() > 20000);
+
+ 11. noneMatch() -> No Employee salary < 0
+
+ employees.stream()
+          .noneMatch(e -> e.salary() < 0);
+
+ 12. Collectors.groupingBy()
+
+ Collectors.groupingBy(
+         Employee::department
+ )
+
+ o/p
+
+ IT -> [emp1,emp2]
+
+ HR -> [emp3,emp4]
+
+ 13. Collectors.mapping() -> Department → Employee Names
+
+             Collectors.groupingBy(
+                     Employee::department,
+
+                     Collectors.mapping(
+                           Employee::name,
+                           Collectors.toList()
+                     )
+             )
+  o/p : IT → [Ravi, Arjun]
+
+        HR → [Priya, Sneha]
+
+14. Collectors.counting()->  Department Employee Count
+
+ Collectors.groupingBy(
+       Employee::department,
+       Collectors.counting()
+ )
+
+15. Collectors.averagingDouble()
+
+Collectors.groupingBy(
+      Employee::department,
+      Collectors.averagingDouble(
+            Employee::salary
+      )
+)
+
+16. summingDouble() -> Department Salary Budget
+
+Collectors.groupingBy(
+      Employee::department,
+      Collectors.summingDouble(
+            Employee::salary
+      )
+)
+
+17. maxBy()
+
+employees.stream()
+.collect(
+Collectors.maxBy(
+Comparator.comparing(
+Employee::salary)
+));
+
+18. minBy()
+
+Collectors.minBy(...)
+
+
+19. toMap() -> Id → Employee
+
+employees.stream()
+.collect(
+Collectors.toMap(
+        Employee::id,
+        Function.identity()
+));
+
+20.joining() ->  All Employee Names Comma Separated
+
+employees.stream()
+        .map(Employee::name)
+        .collect(Collectors.joining(","));
+
+ 21. DoubleSummaryStatistics ->     Statistics  reports
+
+ employees.stream()
+ .collect(
+ Collectors.summarizingDouble(
+ Employee::salary
+ ));
+
+
+
+
+ Problem	                Java 8 Feature
+ Get only matching records-	filter()
+ Convert Object to Object	map()
+ Remove duplicates	distinct()
+ Sort data	sorted()
+ Top N Records	limit()
+ Nth Highest Salary	skip()
+ Count Records	count()
+ Group Data	groupingBy()
+ Group + Transform	mapping()
+ Count per Group	counting()
+ Average per Group	averagingDouble()
+ Sum per Group	summingDouble()
+ Highest Record	maxBy()
+ Lowest Record	minBy()
+ Convert List to Map	toMap()
+ Split into Two Groups	partitioningBy()
+ Concatenate Strings	joining()
+ Full Statistics	summarizingDouble()
+
+
+
+
+
+
+
+
+
+
+
