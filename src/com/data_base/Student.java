@@ -1,5 +1,7 @@
 package com.data_base;
 
+import java.util.List;
+
 public record Student(
         int id,
         String name,
@@ -10,6 +12,7 @@ public record Student(
         int year,
         double percentage,
         String grade,
-        boolean placed
+        boolean placed,
+        List<String> activities
 ) {
 }
